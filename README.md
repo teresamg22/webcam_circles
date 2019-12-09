@@ -28,11 +28,19 @@ The parameters that has been use for the Hough transformer are the following one
 - MIN_RADIUS: Minimum radio to be detected. If unknown, put zero as default.
 - MAX_RADIUS: Maximum radius to be detected. If unknown, put zero as default.
 
-In this .cpp it also uses a gaussian Gaussian filter to blur the image. The parameters of the gaussian filter are:
+In this .cpp it also uses a gaussian Gaussian filter to blur the image with this we can reduce the noise so we avoid false circle detection The parameters of the gaussian filter are:
+ cv::GaussianBlur( gray_image, gray_image, cv::Size(GAUSSIAN_BLUR_SIZE, GAUSSIAN_BLUR_SIZE), GAUSSIAN_BLUR_SIGMA );
 
 - src: input image; the image can have any number of channels, which are processed independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
 - dst: output image of the same size and type as src.
-- ksize: Gaussian kernel size. ksize.width and ksize.height can differ but they both must be positive and odd. Or, they can be zero’s and then they are computed from sigma* .
-- sigmaX: Gaussian kernel standard deviation in X direction.
-- sigmaY: Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height, respectively; to fully control the result regardless of possible future modifications of all this semantics, it is recommended to specify all of ksize, sigmaX, and sigmaY.
+- Size(GAUSSIAN_BLUR_SIZE, GAUSSIAN_BLUR_SIZE): Gaussian kernel size. ksize.width and ksize.height can differ but they both must be positive and odd. Or, they can be zero’s and then they are computed from sigma* .
+- GAUSSIAN_BLUR_SIGMA sigmaX: Gaussian kernel standard deviation in X direction.
+                      sigmaY: Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height, respectively; to fully control the result regardless of possible future modifications of all this semantics, it is recommended to specify all of ksize, sigmaX, and sigmaY.
 - borderType: pixel extrapolation method.
+
+
+References: 
+https://en.wikipedia.org/wiki/Hough_transform7
+https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html
+https://docs.opencv.org/2.4/doc/tutorials/imgproc/gausian_median_blur_bilateral_filter/gausian_median_blur_bilateral_filter.html
+https://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html?highlight=gaussianblur#gaussianblur
